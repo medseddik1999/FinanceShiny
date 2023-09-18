@@ -1,0 +1,3 @@
+Git : 
+
+to pull: git pull --no-ff / git pull origin main --rebase 
