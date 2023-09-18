@@ -530,26 +530,9 @@ server <- function(input, output , session) {
 
   
   
-
-  
-  
-  
-  
-  }  
+}  
 
 
-
-
-
-
-
-
-
-
- 
-
-
- 
   
 # Run the Shiny application
 shinyApp(ui = ui, server = server)
