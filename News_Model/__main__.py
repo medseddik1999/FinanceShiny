@@ -11,9 +11,17 @@ import json
 from datetime import datetime, timedelta
 from keras.preprocessing.text import tokenizer_from_json
 from keras.preprocessing.sequence import pad_sequences 
-from newsapi import NewsApiClient  
+from newsapi import NewsApiClient   
+import os
+from dotenv import load_dotenv 
+
+load_dotenv() 
+
+my_token = os.getenv("NEWS_TOKEN") 
+
+
 model=load_model('model_fanacial_setiment.h5') 
-newsapi=NewsApiClient('5f05f12b7eff4f62838aef95a197f887') 
+newsapi=NewsApiClient(my_token) 
 
 
 
@@ -95,7 +103,7 @@ def news20():
 def news201(title , source=None): 
   today = datetime.today()
   two_weeks_ago = today - timedelta(days=7) 
-  data=newsapi.get_everything (q='stock market news', sources=source , language='en', 
+  data=newsapi.get_everything (q=title , sources=source , language='en', 
             sort_by='relevancy', to=today, page_size=100) 
   artic=data['articles']   
   news=pd.DataFrame(artic) 
@@ -111,7 +119,7 @@ def news201(title , source=None):
   
 
 
-
+#dota=news201('china' , source=None) 
 
 
 #source=pd.read_csv('source.csv')   

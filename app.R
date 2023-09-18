@@ -12,23 +12,15 @@ library(reticulate)
 library(shinydashboard)  
 library(echarts4r)
 source('Functions.R')
-py_run_file("Model_process.py") 
+py_run_file("News_Model") 
 
-news_source=read.csv('source.csv')
-gn_news=py$news20()
-gn_news$publishedAt=as.POSIXct(gn_news$publishedAt, format = "%Y-%m-%dT%H:%M")
-
-dota<-gn_news 
-dota$SentimentText <- ifelse(dota$sentiment > 0, "Positive", ifelse(dota$sentiment < 0, "Negative", "Neutral"))
-max_title_length <- 30
-dota$title2 <- sapply(dota$title, function(title) truncate_title(title, max_title_length))
-dota =dota %>% arrange(publishedAt)
-
-dota$ids=1:nrow(dota)
+news_source=read.csv('local data/source.csv')
 
 
 
-data<-read.csv('tickers_symbols.csv') 
+
+
+data<-read.csv('local data/tickers_symbols.csv') 
 #all_symbols=all_symbols %>% select(-X) 
 all_symbols<-data$symbol 
 data$indices=str_remove(data$indices , "\\[|\\]")  
@@ -167,9 +159,10 @@ ui <-
              
     
   )), tabPanel("News Overview", sidebarLayout(
-    sidebarPanel( fluidRow(
-                           column(3, offset = 3 ,selectInput('source' , 'Select a source:', 
-                                                 choices = c('All',news_source$name)))), 
+    sidebarPanel( fluidRow(column(3,offset = 2 ,textInput('subject' ,'Subject' , value = '' , width = '320px')),
+                           column(3 ,selectInput('source' , 'Select a source:',width = '280px' , 
+                                                 choices = c('All',news_source$name))) ,column(2,
+                           actionButton('look' , 'research' , width = '100px') , style='margin-top: 23px;') ),  
                    br() , 
                    fluidRow(style='height: 280px;',column(7 ,offset = 1 ,
                     plotlyOutput('news_plot') , style='') , column(3, echarts4rOutput('gauge2') , 
@@ -430,21 +423,22 @@ server <- function(input, output , session) {
   ddita <- reactiveVal(NULL)
   
   
-  observeEvent(input$source, {
+  observeEvent(input$look, {
     source1 <- input$source
+    subject<-input$subject 
     
     # Update ddita
-    ddita_data <- functi("", source1, news_source)
+    ddita_data <- functi(subject, source1, news_source)
     ddita(ddita_data)
-    print
     
-  }) 
+    
+   
   
   
   
     output$gauge2 <- renderEcharts4r({
       ddita=ddita()
-      v <- sum(ddita$sentiment) / nrow(dota)
+      v <- sum(ddita$sentiment) / nrow(ddita)
       e_charts() |>
         e_gauge(round(v, 2), min = -1, max = 1,
                 "Sentiment Score", axisLine = list(
@@ -531,7 +525,7 @@ server <- function(input, output , session) {
   })
   
 
-
+  })
 
   
   
@@ -544,7 +538,7 @@ server <- function(input, output , session) {
 
 
 
-
+#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
 
 
 
