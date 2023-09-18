@@ -159,10 +159,11 @@ ui <-
              
     
   )), tabPanel("News Overview", sidebarLayout(
-    sidebarPanel( fluidRow(column(3,offset = 2 ,textInput('subject' ,'Subject' , value = '' , width = '320px')),
+    sidebarPanel( fluidRow(column(3, offset = 1,textInput('subject' ,'Subject' , value = '' , width = '320px')),
                            column(3 ,selectInput('source' , 'Select a source:',width = '280px' , 
-                                                 choices = c('All',news_source$name))) ,column(2,
-                           actionButton('look' , 'research' , width = '100px') , style='margin-top: 23px;') ),  
+                                                 choices = c('All',news_source$name)))) , fluidRow(
+                           column(4, offset = 1,
+                           actionButton('look' , ' research ' ))),  
                    br() , 
                    fluidRow(style='height: 280px;',column(7 ,offset = 1 ,
                     plotlyOutput('news_plot') , style='') , column(3, echarts4rOutput('gauge2') , 
@@ -176,7 +177,7 @@ ui <-
                     actionButton("scrollButton", icon("arrow-down"), class = "btn-primary"),
                     style = "text-align: center;
                margin-top: -60px;
-               margin-left: 60px; 
+               margin-left: 70px; 
                color: black;
                background-color:#e9e5e5;
                "
@@ -538,7 +539,7 @@ server <- function(input, output , session) {
 
 
 
-#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
+
 
 
 
