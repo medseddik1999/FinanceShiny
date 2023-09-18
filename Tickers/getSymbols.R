@@ -3,6 +3,10 @@ library(tidyquant)
 library(reticulate)
 library(alphavantager)
 library(dplyr)
+
+
+
+
 # Set your Alpha Vantage API key
 #api_key <- av_api_key('')
 
