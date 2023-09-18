@@ -161,11 +161,50 @@ div#P1.well.part1 {
 }
 
 
+#Portfolio_Optimization  {font-size: 30px;
+    text-align: center;
+    border-block-color: initial;
+    background-image: linear-gradient(to right, #282a2b, #00c6ff);
+    color: #f5f5f5;
+    padding: 20px 0;
+    text-align: center;
+    position: relative; 
+}
+
+
+#Trend {
+      font-size: 28px;
+    text-align: center;
+    font-size: 30px;
+    text-align: center;
+    border-block-color: initial;
+    background-image: linear-gradient(to right, #282a2b, #a47e58);
+    color: #f5f5f5;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    background-attachment: scroll;
+}
+
+
+#scroll-trigger1.appear {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 
 
-
-
-
-
+#stock2 {
+    font-size: 28px;
+    text-align: center;
+    font-size: 30px;
+    text-align: center;
+    border-block-color: initial;
+    background-image: linear-gradient(to right, #282a2b, #304dd0);
+    color: #f5f5f5;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    background-attachment: scroll;
+}
 

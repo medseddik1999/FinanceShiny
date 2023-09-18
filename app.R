@@ -87,43 +87,65 @@ ui <-
                                   
                                  
                         
-                        
+                     div( id = "scroll-trigger1" ,
                          fluidRow(id='P1', class='part1' , style="font-size: 16px; color: #141515; background: #6aadcc;font-family: Helvetica Neue; 
                                                                                margin-right: -37px;  margin-left: -38px;
                                                                                 " ,  
                                   h3('Portfolio Optimization' , id='Portfolio_Optimization' , 
-                                     style="font-size: 28px;text-align: center;" ),br(),
-                            column(6,p('In the Price Trend Analysis section of our web application, you can delve into the fascinating world of stock price analysis. By exploring the historical price movements of stocks, you can gain valuable insights into their trends and make informed investment decisions.' , style=''), 
-                           br(),p("Our interactive charts provide a visual representation of the stock's price over different time periods. You can identify patterns, support and resistance levels, and key trend lines. By understanding these price trends, you can determine the stock's momentum, potential reversals, and overall market sentiment."),
-                           br() , p("In addition to analyzing individual stocks, our web application allows you to explore the relationships between different stocks. You can compare the performance of multiple stocks side by side, visualize correlations, and examine how they influence each other. Understanding these relationships is essential for diversifying your portfolio effectively and managing risk."),
-                           br(),p("Portfolio optimization is a critical aspect of successful investing, and our web application provides advanced tools to help you achieve this. By inputting your investment goals and time horizon, our algorithms analyze historical performance, risk metrics, and correlations among different stocks. Based on this analysis, the application generates recommendations for an optimized portfolio allocation. This allocation considers factors such as diversification, risk management, and desired returns, enabling you to construct a well-balanced portfolio tailored to your objectives")) 
+                                     ),br(),
+                            column(6, h4('Effortless Stock Selection'), br(),
+                            
+                            p("The user interface of this innovative stock selection window is designed to be exceptionally user-friendly. When you open the window, you'll find an intuitive dashboard that allows you to select stocks from an extensive list of options with ease. Whether you're interested in technology sector leaders, reliable blue-chip stocks, or exploring emerging market opportunities,
+                              the interface streamlines the process of curating your personalized investment portfolio.") , br(), 
+                               h4('Optimized Combinations and Comprehensive Statistics'), br(),  
+                            p('What sets this feature window apart is its utilization of 
+                            advanced optimization algorithms. As you select stocks,
+                            these algorithms work tirelessly to recommend the most optimized combinations 
+                            of key indicators, tailored specifically to your investment objectives and risk tolerance.
+                            Additionally, the window provides you with comprehensive statistics on risk and return, including historical performance data, volatility assessments, and growth projections. Armed with this valuable information, you can confidently make well-informed investment decisions and navigate the complex world of finance
+                              with precision.')
+                            
+                                  ) 
                            
                            
                            
                            
                            
-                           , column(4, tags$image( src = "Portofilio.png",  
+                           , column(4, br() , tags$image( src = "Portofilio.png",  
                                                                           type = "img/svg",  
                                                                           width = "800",  
                                                                           height = "450" 
-                                                                        ))), 
+                                                                        ))
+                           
+                           )),
                         fluidRow(id='P2', class='part2' , style="font-size: 16px; color: #141515; background: #b1a9a1 ;font-family: Helvetica Neue; 
                                                                                margin-right: -37px;  margin-left: -38px;
                                                                                 " ,  
-                                 h3('News Trend Ananlytics' , id='Trend' , 
+                                 h3('News Sentiment' , id='Trend' , 
                                     style="font-size: 28px;text-align: center;" ),br(),
-                                 column(6,h4('On development' , style="font-size: 35px;text-align: center;" )) 
+                                 fluidRow(column(4, tags$image(src = "Newspage.png",  
+                                                               type = "img/svg",  
+                                                               width = "800",  
+                                                               height = "450" )) 
+                                 
+                                  , column(5, offset = 2 , p("A dynamic tool that redefines the way you consume news. Our website's Feature Window offers an unparalleled experience by allowing you to curate your news feed with precision. You can effortlessly handpick your preferred news subjects and sources, ensuring that the content you receive aligns perfectly with your interests. What truly distinguishes our Feature Window is its seamless integration of state-of-the-art AI sentiment analysis. As you navigate through the articles, our AI system diligently assesses the sentiment of each piece, delivering insightful sentiment scores. This unique feature enables you to gauge the emotional tone of the news, providing a nuanced perspective on current events. Make well-informed decisions about which stories to explore in-depth and gain a deeper understanding of the news landscape. Embrace the future of news consumption, harnessing the power of AI-driven sentiment analysis, 
+                                  and elevate your news experience with our Feature Window." , 
+                                                             style='margin-top: 60px;'))) 
                                  
                                  
                                  
                                  
-                                 
-                                 ),                                   
+                                 ) , 
+                     
+                     fluidRow(id='P3', class='part3' , style="font-size: 16px; color:#141515; background: #6f7a83 ;font-family: Helvetica Neue; 
+                                                                               margin-right: -37px;  margin-left: -38px;
+                                                                                " ,  
+                              h3('Stock report' , id='stock2' ) , 
+                              
+                              p('On going  devlopment' , style='font-size: 40px ; text-align:center;')) 
+                     
                         
-                                 h2(""),
-                                 p(""),
-                                 h2(""),
-                                 p("")
+                                 
                         ) 
                         , 
                tabPanel(title = "Portfolio Analytics",
@@ -134,7 +156,7 @@ ui <-
                    selectInput("input_list", "Select Stock Symbole:", choices =all_symbols, multiple = TRUE),
                    dateRangeInput("date_range", "Select Date Range:", start = as.Date('2020-01-01'), end = NULL),
                    actionButton("submit_button", "Submit"),br(),br(),fluidPage(
-                   textOutput('text_output1'),br(),tableOutput("shappo") , br() ,tableOutput("shappo2")) , 
+                   textOutput('text_output1'),br(), tableOutput("shappo") , br() ,tableOutput("shappo2")) , 
                    style=' min-height: 20px;
     padding: 19px;
     margin-top: 30px;
@@ -157,7 +179,7 @@ ui <-
                                             column(width = 6 , plotlyOutput('S_return_plot'))) ) , 
                
              
-    
+    ##########
   )), tabPanel("News Overview", sidebarLayout(
     sidebarPanel( fluidRow(column(3, offset = 1,textInput('subject' ,'Subject' , value = '' , width = '320px')),
                            column(3 ,selectInput('source' , 'Select a source:',width = '280px' , 
@@ -185,7 +207,9 @@ ui <-
                   uiOutput("news_article2") 
                   , width = 30 ) 
                    )  
-  ) , tabPanel("Stock Report" , )
+  ) , 
+  ################
+  tabPanel("Stock Report" , )
   
   
   
@@ -210,6 +234,19 @@ ui <-
 
 server <- function(input, output , session) {
 
+  
+  observe({
+    # When the user scrolls to a certain point, trigger the appearance
+    shinyjs::runjs(
+      'if ($(window).scrollTop() > 200) {
+         $("#scroll-trigger1").addClass("appear");
+       }'
+    )
+  })
+
+  
+  
+  
  
 
   
@@ -405,13 +442,14 @@ server <- function(input, output , session) {
       c=t(c) 
       c<-as.data.frame(c) 
       colnames(c)<-'Weights'  
+      c[,'Percent (%)']<-round(c$Weights*100 , 2)
       c
     } , width = "100%" , rownames = TRUE) 
     
     output$shappo2<-renderTable({ 
       portfolio_data[max_sharpe_index,c("Risk","Return","SharpeRatio")]   
       
-    } , width = "100%")
+    } , width = "120%")
     
     
     #store_portfolio 
@@ -530,7 +568,13 @@ server <- function(input, output , session) {
 
   
   
-}  
+
+
+  
+  
+    
+  
+  }  
 
 
   
