@@ -1,0 +1,13 @@
+name: FinanceShiny
+title: FinanceShiny
+username: yw93hx-midou-seddik
+account: yw93hx-midou-seddik
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 9940983
+bundleId: 7718991
+url: https://yw93hx-midou-seddik.shinyapps.io/FinanceShiny/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: __pycache__/Model_process.cpython-311.pyc|.env|.Rapp.history|.RData|requirements.txt
