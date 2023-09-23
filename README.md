@@ -19,6 +19,9 @@ The Portfolio Optimization and Stock Overview App is an interactive web applicat
 
 ## Portfolio optimization with Sharp ratio theory  
 
+
+![Example Image](https://seddik1999abdm.netlify.app/img/works/finsh.png) 
+
 The **Sharpe Ratio**, developed by American economist William F. Sharpe in the 1960s, is a fundamental concept in the field of finance and investment. It serves as a key metric for assessing the risk-adjusted performance of an investment or a portfolio. The Sharpe Ratio helps investors and financial analysts make more informed decisions by considering both the returns generated and the risk incurred.
 
 At its core, the Sharpe Ratio is a measure of excess return per unit of risk. It takes into account an investment's average return, typically calculated as the mean return, and divides it by the standard deviation of those returns. The result is a single number that provides insight into the efficiency of an investment strategy or portfolio. Here's a breakdown of the key components:
