@@ -58,7 +58,8 @@ In summary, the Sharpe Ratio is a valuable tool in the world of finance, enablin
 
 ## News Sentiment Analysis  
 
-
+![Example Image](https://github.com/medseddik1999/FinanceShiny/blob/main/www/News_news.png?raw=true) 
+	
 
 
 ### Risk and Investment:
