@@ -1,8 +1,8 @@
 library(PortfolioAnalytics)
 library(reticulate)
 library(lubridate) 
-
-
+library(SnowballC) 
+library(tm)
 
 
 
@@ -188,9 +188,33 @@ generate_portfolios <- function(prices_data) {
 } 
 
 
+
+
+clean_text2 <- function(text) {
+  # Convert to lowercase
+  text <- tolower(text)
+ 
+  # Remove stopwords
+  text <- removeWords(text, stopwords("english"))
+  # Perform stemming (or lemmatization if needed)
+  text <- wordStem(text)
+  return(text)
+} 
+
+
+doraa<-function(text , source=NULL){ 
+  
+  data=py$news201(text , source) 
+  
+  
+  return(data)
+  }
+
+
+
 functi<-function(text=NULL ,y='All' ,data){
   if (y=='All' && text != ''){
-    ddita=py$news201(text) 
+    ddita=doraa(text) 
     ddita$publishedAt=as.POSIXct(ddita$publishedAt, format = "%Y-%m-%dT%H:%M") 
     ddita$SentimentText <- ifelse(ddita$sentiment > 0, "Positive", ifelse(ddita$sentiment < 0, "Negative", "Neutral"))
     max_title_length <- 30
@@ -201,7 +225,7 @@ functi<-function(text=NULL ,y='All' ,data){
   if (y !='All' && text != ''){
     
     selected_id <- data$id[data$name == y] 
-    ddita=py$news201(text ,selected_id ) 
+    ddita=doraa(text ,selected_id ) 
     ddita$publishedAt=as.POSIXct(ddita$publishedAt, format = "%Y-%m-%dT%H:%M") 
     ddita$SentimentText <- ifelse(ddita$sentiment > 0, "Positive", ifelse(ddita$sentiment < 0, "Negative", "Neutral"))
     max_title_length <- 30
@@ -211,7 +235,7 @@ functi<-function(text=NULL ,y='All' ,data){
     
   }
   if (y=='All' && (text == '' | is.na(text))){
-    ddita=py$news201('Stock Market News') 
+    ddita=doraa('Stock Market News') 
     ddita$publishedAt=as.POSIXct(ddita$publishedAt, format = "%Y-%m-%dT%H:%M") 
     ddita$SentimentText <- ifelse(ddita$sentiment > 0, "Positive", ifelse(ddita$sentiment < 0, "Negative", "Neutral"))
     max_title_length <- 30
@@ -222,7 +246,7 @@ functi<-function(text=NULL ,y='All' ,data){
   if (y !='All' && (text == '' | is.na(text))){
     
     selected_id <- data$id[data$name == y] 
-    ddita=py$news201('Stock Market News' ,selected_id ) 
+    ddita=doraa('Stock Market News' ,selected_id ) 
     ddita$publishedAt=as.POSIXct(ddita$publishedAt, format = "%Y-%m-%dT%H:%M") 
     ddita$SentimentText <- ifelse(ddita$sentiment > 0, "Positive", ifelse(ddita$sentiment < 0, "Negative", "Neutral"))
     max_title_length <- 30
@@ -233,6 +257,23 @@ functi<-function(text=NULL ,y='All' ,data){
   }
   
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

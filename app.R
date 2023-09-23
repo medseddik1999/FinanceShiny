@@ -1,6 +1,5 @@
 library(shiny)
 library(dplyr) 
-library(DT)  
 library(tidyquant)
 library(quantmod) 
 library(plotly) 
@@ -11,8 +10,36 @@ library(shinyjs)
 library(reticulate) 
 library(shinydashboard)  
 library(echarts4r)
+
 source('Functions.R')
-py_run_file("News_Model") 
+
+
+PYTHON_DEPENDENCIES1 = c('newsapi-python' ,'pandas') 
+PYTHON_DEPENDENCIES2 = c( 'numpy' ,'scikit-learn') 
+ 
+
+
+virtualenv_dir = Sys.getenv('VIRTUALENV_NAME')
+python_path = Sys.getenv('PYTHON_PATH')
+
+
+
+
+
+# Create virtual env and install dependencies
+reticulate::virtualenv_create(envname = virtualenv_dir) 
+reticulate::virtualenv_install(virtualenv_dir, packages = PYTHON_DEPENDENCIES1, ignore_installed=TRUE)
+reticulate::use_virtualenv(virtualenv_dir, required = T)
+
+
+
+
+
+reticulate::use_virtualenv(virtualenv_dir, required = T)
+
+source_python("trypy.py")
+
+
 
 news_source=read.csv('local data/source.csv')
 
@@ -65,7 +92,7 @@ ui <-
     )
   ), 
     navbarPage(id="nav-1" , title = div(
-      tags$i(class = "glyphicon glyphicon-stats", style = "margin-right: 10px;"),"Stock Market Adviser"),
+      tags$i(class = "glyphicon glyphicon-stats", style = "margin-right: 10px;"),"Stock Market App"),
                
                ################################################
                # fluidRow() 
@@ -142,7 +169,7 @@ ui <-
                                                                                 " ,  
                               h3('Stock report' , id='stock2' ) , 
                               
-                              p('On going  devlopment' , style='font-size: 40px ; text-align:center;')) 
+                              p('Ongoing devlopment' , style='font-size: 40px ; text-align:center;')) 
                      
                         
                                  
@@ -233,7 +260,23 @@ ui <-
 
 
 server <- function(input, output , session) {
+  
+  reticulate::virtualenv_install(virtualenv_dir, packages = PYTHON_DEPENDENCIES2, ignore_installed=TRUE)
+  reticulate::use_virtualenv(virtualenv_dir, required = T)
+  
+  source_python("trypy.py") 
+  
 
+  
+  #reticulate::virtualenv_install(virtualenv_dir, packages = PYTHON_DEPENDENCIES2, ignore_installed=TRUE)
+  
+  
+  
+  
+  
+   
+  
+  
   
   observe({
     # When the user scrolls to a certain point, trigger the appearance
@@ -463,6 +506,9 @@ server <- function(input, output , session) {
   
   
   observeEvent(input$look, {
+    
+    
+    
     source1 <- input$source
     subject<-input$subject 
     
